@@ -5,8 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.TreeMap;
+
 
 public class DBUtility {
     private static String user = "Josh200495149"; //MySQL server username
@@ -19,7 +18,7 @@ public class DBUtility {
     public static ArrayList<Workout> getWorkoutDataFromDB()
     {
         //the pizzaID will be the key, the pizza will be the value
-        TreeMap<Integer,Pizza> pizzas = new TreeMap<>();
+        ArrayList<Workout> workouts = new ArrayList<>();
 
         //create the sql string we want to run on the database
         String sql = "SELECT pizzas.pizzaID, size, dough, crustStyle,sauce,delivery,price,toppings.toppingID,toppingName " +
@@ -54,22 +53,14 @@ public class DBUtility {
                 int toppingID = resultSet.getInt("toppingID");
 
 
-                //check if the pizzaID is already in the TreeMap
-                if (pizzas.keySet().contains(pizzaID))
-                {
-                    //the pizza already exists, just add more toppings
-                    pizzas.get(pizzaID).getToppings().add(allToppings.get(toppingID-1));
-                }
-                else
-                {
-                    //the pizza does not exist, create it and add it to the TreeMap
-                    ArrayList<Topping> toppings = new ArrayList<>();
-                    toppings.add(allToppings.get(toppingID-1));  //The toppingID in the database
-                    //starts at 1.  In the arraylist
-                    //it starts at 0.
-                    Pizza newPizza = new Pizza(pizzaID,size,toppings,dough,crust,sauce,delivery);
-                    pizzas.put(pizzaID,newPizza);
-                }
+                //the pizza does not exist, create it and add it to the TreeMap
+                ArrayList<Topping> toppings = new ArrayList<>();
+                toppings.add(allToppings.get(toppingID-1));  //The toppingID in the database
+                //starts at 1.  In the arraylist
+                //it starts at 0.
+                Pizza newPizza = new Pizza(pizzaID,size,toppings,dough,crust,sauce,delivery);
+                pizzas.put(pizzaID,newPizza);
+
             }
         } catch (Exception e)
         {

@@ -28,10 +28,8 @@ public class Workout {
     public void setWorkoutName(String workoutName) {
         workoutName = workoutName.toLowerCase().trim();
         List<String> validWorkoutName = validWorkoutName();
-        System.out.println(workoutName);
         if (validWorkoutName.contains(workoutName)) {
             workoutName = workoutName.substring(0, 1).toUpperCase() + workoutName.substring(1, workoutName.length());
-            System.out.println(workoutName);
             this.workoutName = workoutName;
         }else {
             throw new IllegalArgumentException("Valid workout names are: " + validWorkoutName);
@@ -48,10 +46,8 @@ public class Workout {
     public void setExerciseName(String exerciseName) {
         exerciseName = exerciseName.toLowerCase().trim();
         List<String> validExerciseName = validExerciseName();
-        System.out.println(exerciseName);
         if (validExerciseName.contains(exerciseName)) {
             exerciseName = exerciseName.substring(0, 1).toUpperCase() + exerciseName.substring(1, exerciseName.length());
-            System.out.println(exerciseName);
             this.exerciseName = exerciseName;
         }else {
             throw new IllegalArgumentException("Valid exercise names are: " + validExerciseName);

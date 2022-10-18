@@ -52,27 +52,28 @@ public class DBUtility {
         return workouts;
     }
 
-    public static XYChart.Series<String,Integer> getWeightSummary()
+    public static XYChart.Series<String,Integer> getExercisesCompleted()
     {
         XYChart.Series<String, Integer> exercisesCompleted = new XYChart.Series<>();
 
         String sql = "SELECT Exercise_Name  , COUNT(Exercise_Name) as TimesExerciseCompleted " +
                 "FROM weightliftingData " +
                 "GROUP BY  Exercise_Name " +
-                "ORDER BY TimesExerciseCompleted DESC;";
+                "ORDER BY TimesExerciseCompleted DESC " +
+                "LIMIT 10;";
 
         try(
                 Connection conn = DriverManager.getConnection(connectUrl,user,pw);
 
                 Statement statement = conn.createStatement();
 
-                ResultSet resultSet = statement.executeQuery(sql);
+                ResultSet dbResults = statement.executeQuery(sql);
         )
         {
-            while (resultSet.next())
+            while (dbResults.next())
             {
-                String topping = resultSet.getString("Exercise_Name");
-                int numOfOrders = resultSet.getInt("TimesExerciseCompleted");
+                String topping = dbResults.getString("Exercise_Name");
+                int numOfOrders = dbResults.getInt("TimesExerciseCompleted");
                 exercisesCompleted.getData().add(new XYChart.Data<>(topping,numOfOrders));
             }
         } catch (Exception e)

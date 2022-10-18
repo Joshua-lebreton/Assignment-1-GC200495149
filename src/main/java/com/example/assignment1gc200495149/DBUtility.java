@@ -1,9 +1,8 @@
 package com.example.assignment1gc200495149;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import javafx.scene.chart.XYChart;
+
+import java.sql.*;
 import java.util.ArrayList;
 
 
@@ -17,55 +16,69 @@ public class DBUtility {
 
     public static ArrayList<Workout> getWorkoutDataFromDB()
     {
-        //the pizzaID will be the key, the pizza will be the value
         ArrayList<Workout> workouts = new ArrayList<>();
 
-        //create the sql string we want to run on the database
-        String sql = "SELECT pizzas.pizzaID, size, dough, crustStyle,sauce,delivery,price,toppings.toppingID,toppingName " +
-                "FROM pizzas INNER JOIN toppingsonpizza " +
-                "INNER JOIN toppings " +
-                "WHERE toppings.toppingID = toppingsonpizza.toppingID AND pizzas.pizzaID = toppingsonpizza.pizzaID " +
-                "ORDER BY pizzas.pizzaID,toppingsonpizza.toppingonpizzaID;";
+        String sql =    "SELECT Workout_Name, Exercise_Name, Weight, Reps " +
+                        "FROM weightliftingData " +
+                        "ORDER BY Workout_Name;";
 
-        //the try () is called "try with resources".  Anything opened in the () will
-        //automatically close when the try block is done.
+
         try(
-                //1.  connect to the database
                 Connection conn = DriverManager.getConnection(connectUrl,user,pw);
 
-                //2.  create a statement object
                 Statement statement = conn.createStatement();
 
-                //3.  use the statement object to run the sql and return a ResultSet object
+                ResultSet dbResults = statement.executeQuery(sql);
+        )
+        {
+            //4.  loop over the resultSet
+            while (dbResults.next())
+            {
+                String workoutName = dbResults.getString("Workout_Name");
+                String exerciseName = dbResults.getString("Exercise_Name");
+                double weight = dbResults.getDouble("Weight");
+                int reps = dbResults.getInt("Reps");
+
+
+                Workout newWorkout = new Workout(workoutName, exerciseName, weight, reps);
+                workouts.add(newWorkout);
+
+            }
+            System.out.println(workouts.toString());
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return workouts;
+    }
+
+    public static XYChart.Series<String,Integer> getWeightSummary()
+    {
+        XYChart.Series<String, Integer> exercisesCompleted = new XYChart.Series<>();
+
+        String sql = "SELECT Exercise_Name  , COUNT(Exercise_Name) as TimesExerciseCompleted " +
+                "FROM weightliftingData " +
+                "GROUP BY  Exercise_Name " +
+                "ORDER BY TimesExerciseCompleted DESC;";
+
+        try(
+                Connection conn = DriverManager.getConnection(connectUrl,user,pw);
+
+                Statement statement = conn.createStatement();
+
                 ResultSet resultSet = statement.executeQuery(sql);
         )
         {
-            //4.  loop over the resultSet and create Topping objects
             while (resultSet.next())
             {
-                int pizzaID = resultSet.getInt("pizzaID");
-                String size = resultSet.getString("size");
-                String dough = resultSet.getString("dough");
-                String crust = resultSet.getString("crustStyle");
-                String sauce = resultSet.getString("sauce");
-                Boolean delivery = resultSet.getBoolean("delivery");
-                Double price = resultSet.getDouble("price");
-                int toppingID = resultSet.getInt("toppingID");
-
-
-                //the pizza does not exist, create it and add it to the TreeMap
-                ArrayList<Topping> toppings = new ArrayList<>();
-                toppings.add(allToppings.get(toppingID-1));  //The toppingID in the database
-                //starts at 1.  In the arraylist
-                //it starts at 0.
-                Pizza newPizza = new Pizza(pizzaID,size,toppings,dough,crust,sauce,delivery);
-                pizzas.put(pizzaID,newPizza);
-
+                String topping = resultSet.getString("Exercise_Name");
+                int numOfOrders = resultSet.getInt("TimesExerciseCompleted");
+                exercisesCompleted.getData().add(new XYChart.Data<>(topping,numOfOrders));
             }
         } catch (Exception e)
         {
             e.printStackTrace();
         }
-        return pizzas.values();
+        return exercisesCompleted;
     }
 }

@@ -36,7 +36,7 @@ public class WeightDataTableController implements Initializable {
         exerciseNameColumn.setCellValueFactory(new PropertyValueFactory<>("exerciseName"));
         weightColumn.setCellValueFactory(new PropertyValueFactory<>("weight"));
         repsColumn.setCellValueFactory(new PropertyValueFactory<>("reps"));
-        tableView.getItems().addAll(DBUtility.());
+        tableView.getItems().addAll(DBUtility.getWorkoutDataFromDB());
 
     }
 }

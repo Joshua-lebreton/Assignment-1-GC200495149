@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 
 public class DBUtility {
-    private static String user = "Josh200495149"; //MySQL server username
+    private static String user = "Josh200495149";
     private static String pw = "UrSwAXxnHK";
     private static String connectUrl = "jdbc:mysql://172.31.22.43:3306/Josh200495149";
 
@@ -31,7 +31,7 @@ public class DBUtility {
                 ResultSet dbResults = statement.executeQuery(sql);
         )
         {
-            //4.  loop over the resultSet
+
             while (dbResults.next())
             {
                 String workoutName = dbResults.getString("Workout_Name");
@@ -44,7 +44,6 @@ public class DBUtility {
                 workouts.add(newWorkout);
 
             }
-            System.out.println(workouts.toString());
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -56,7 +55,7 @@ public class DBUtility {
     {
         XYChart.Series<String, Integer> exercisesCompleted = new XYChart.Series<>();
 
-        String sql = "SELECT Exercise_Name  , COUNT(Exercise_Name) as TimesExerciseCompleted " +
+        String sql = "SELECT Exercise_Name, COUNT(Exercise_Name) as TimesExerciseCompleted " +
                 "FROM weightliftingData " +
                 "GROUP BY  Exercise_Name " +
                 "ORDER BY TimesExerciseCompleted DESC " +
@@ -72,14 +71,47 @@ public class DBUtility {
         {
             while (dbResults.next())
             {
-                String topping = dbResults.getString("Exercise_Name");
+                String exerciseInitial = dbResults.getString("Exercise_Name");
+                exerciseInitial = exerciseInitial.replace("(","");
+                int index = exerciseInitial.indexOf(" ");
+                exerciseInitial= exerciseInitial.substring(0,1) + exerciseInitial.substring(index, index +2);
+                exerciseInitial = exerciseInitial.toUpperCase();
                 int numOfOrders = dbResults.getInt("TimesExerciseCompleted");
-                exercisesCompleted.getData().add(new XYChart.Data<>(topping,numOfOrders));
+                exercisesCompleted.getData().add(new XYChart.Data<>(exerciseInitial,numOfOrders));
             }
         } catch (Exception e)
         {
             e.printStackTrace();
         }
         return exercisesCompleted;
+    }
+    public static ArrayList<String> getExerciseName()
+    {
+        ArrayList<String> exerciseNames = new ArrayList<>();
+
+        String sql = "SELECT Exercise_Name, COUNT(Exercise_Name) as TimesExerciseCompleted " +
+                "FROM weightliftingData " +
+                "GROUP BY  Exercise_Name " +
+                "ORDER BY TimesExerciseCompleted DESC " +
+                "LIMIT 10;";
+
+        try(
+                Connection conn = DriverManager.getConnection(connectUrl,user,pw);
+
+                Statement statement = conn.createStatement();
+
+                ResultSet dbResults = statement.executeQuery(sql);
+        )
+        {
+            while (dbResults.next())
+            {
+                String exerciseName = dbResults.getString("Exercise_Name");
+                exerciseNames.add(exerciseName);
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return exerciseNames;
     }
 }

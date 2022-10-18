@@ -1,4 +1,5 @@
 package com.example.assignment1gc200495149;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -6,6 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -31,13 +33,16 @@ public class WeightDataTableController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("table view");
         workoutNameColumn.setCellValueFactory(new PropertyValueFactory<>("workoutName"));
         exerciseNameColumn.setCellValueFactory(new PropertyValueFactory<>("exerciseName"));
         weightColumn.setCellValueFactory(new PropertyValueFactory<>("weight"));
         repsColumn.setCellValueFactory(new PropertyValueFactory<>("reps"));
         tableView.getItems().addAll(DBUtility.getWorkoutDataFromDB());
+    }
 
+    @FXML
+    private void viewDashboard(ActionEvent event) throws IOException {
+        SceneChanger.changeScenes(event,"exercises-completed-dashboard-view.fxml");
     }
 }
 

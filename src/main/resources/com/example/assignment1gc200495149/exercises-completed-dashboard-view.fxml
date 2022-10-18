@@ -9,6 +9,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.assignment1gc200495149.ExercisesCompletedDashboardController">
    <children>
@@ -24,17 +25,20 @@
             </BarChart>
          </center>
          <bottom>
-            <Button fx:id="changeViewButton" mnemonicParsing="false" text="Change View" BorderPane.alignment="CENTER">
+            <Button fx:id="changeViewButton" mnemonicParsing="false" onAction="#viewTable" text="Change View" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="10.0" />
                </BorderPane.margin>
             </Button>
          </bottom>
          <top>
-            <Label alignment="TOP_LEFT" text="Number of times exercises have been compelted" BorderPane.alignment="CENTER" />
+            <Label alignment="TOP_LEFT" text="Top 10 exercises based on sets completed" BorderPane.alignment="CENTER" />
          </top>
          <left>
-            <TextArea prefHeight="200.0" prefWidth="200.0" text="Ttengeprugn &#10;wfiuwbef&#10;wefownef&#10;wefiun" BorderPane.alignment="CENTER" />
+            <TextArea fx:id="legendTextArea" editable="false" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="11.0" />
+               </font></TextArea>
          </left>
       </BorderPane>
    </children>

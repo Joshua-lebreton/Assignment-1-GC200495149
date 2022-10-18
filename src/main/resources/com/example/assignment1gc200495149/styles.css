@@ -7,3 +7,6 @@
     -fx-background-color: darkgrey;
     -fx-border-color: rgb(37,42,43);
 }
+.text-area{
+    -fx-font-size:8pt;
+}

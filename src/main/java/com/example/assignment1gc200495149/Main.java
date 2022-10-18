@@ -16,8 +16,6 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
         Workout deleteLater = new Workout("chest","Chin up",47.50,8);
-        System.out.println(deleteLater.toString());
-        System.out.println(deleteLater.getExerciseName());
     }
 
     public static void main(String[] args) {

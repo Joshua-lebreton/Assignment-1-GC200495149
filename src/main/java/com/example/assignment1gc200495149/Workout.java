@@ -82,4 +82,8 @@ public class Workout {
         }
 
     }
+
+    public String toString(){
+        return workoutName +" "+ exerciseName +" "+ weight +" "+ reps;
+    }
 }

@@ -4,6 +4,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -11,25 +12,31 @@ import java.util.ResourceBundle;
 public class WeightDataTableController implements Initializable {
 
     @FXML
-    private Button ChangeViewButton;
+    private Button changeViewButton;
 
     @FXML
-    private TableColumn<?, ?> ExerciseNameColumn;
+    private TableColumn<Workout, String> exerciseNameColumn;
 
     @FXML
-    private TableColumn<?, ?> RepsColumn;
+    private TableColumn<Workout, Integer> repsColumn;
 
     @FXML
-    private TableView<?> TableView;
+    private TableView<Workout> tableView;
 
     @FXML
-    private TableColumn<?, ?> WeightColumn;
+    private TableColumn<Workout, Double> weightColumn;
 
     @FXML
-    private TableColumn<?, ?> WeightNameColumn;
+    private TableColumn<Workout, String> workoutNameColumn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("table view");
+        workoutNameColumn.setCellValueFactory(new PropertyValueFactory<>("workoutName"));
+        exerciseNameColumn.setCellValueFactory(new PropertyValueFactory<>("exerciseName"));
+        weightColumn.setCellValueFactory(new PropertyValueFactory<>("weight"));
+        repsColumn.setCellValueFactory(new PropertyValueFactory<>("reps"));
+        tableView.getItems().addAll(DBUtility.());
 
     }
 }

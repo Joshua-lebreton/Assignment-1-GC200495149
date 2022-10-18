@@ -4,7 +4,7 @@
 
 }
 .chart-bar{
-    -fx-background-color: darkgrey;
+    -fx-background-color: #444;
     -fx-border-color: rgb(37,42,43);
 }
 .text-area{

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane layoutX="227.0" layoutY="72.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <Button fx:id="ChangeViewButton" mnemonicParsing="false" text="Change View" BorderPane.alignment="CENTER" />
+         </bottom>
+         <center>
+            <TableView fx:id="TableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn fx:id="WeightNameColumn" prefWidth="150.0" text="Workout Name" />
+                <TableColumn fx:id="ExerciseNameColumn" prefWidth="150.0" text="Exercise Name" />
+                  <TableColumn fx:id="WeightColumn" prefWidth="150.0" text="Weight" />
+                  <TableColumn fx:id="RepsColumn" prefWidth="150.0" text="Reps" />
+              </columns>
+            </TableView>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

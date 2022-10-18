@@ -1,0 +1,9 @@
+.root{
+    -fx-background-color: darkgrey;
+    -fx-font-size:13pt;
+
+}
+.chart-bar{
+    -fx-background-color: darkgrey;
+    -fx-border-color: rgb(37,42,43);
+}

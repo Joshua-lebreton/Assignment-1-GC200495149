@@ -3,12 +3,21 @@ package com.example.assignment1gc200495149;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author Joshua Lebreton
+ */
 public class Workout {
     private String workoutName;
     private String exerciseName ;
     private double weight;
     private int reps;
 
+    /**Intializes Workout objects
+    *@param workoutName
+    *@param exerciseName
+    *@param weight
+    *@param reps
+    */
     public Workout(String workoutName, String exerciseName, double weight, int reps) {
         setWorkoutName(workoutName);
         setExerciseName(exerciseName);

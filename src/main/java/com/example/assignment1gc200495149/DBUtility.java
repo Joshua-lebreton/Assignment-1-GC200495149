@@ -5,15 +5,20 @@ import javafx.scene.chart.XYChart;
 import java.sql.*;
 import java.util.ArrayList;
 
-
+/** Utility class that gets ResultSets from MySql
+ * @author Joshua Lebreton
+ * Data set from https://www.kaggle.com/datasets/joep89/weightlifting?resource=download
+ */
 public class DBUtility {
     private static String user = "Josh200495149";
     private static String pw = "UrSwAXxnHK";
     private static String connectUrl = "jdbc:mysql://172.31.22.43:3306/Josh200495149";
 
-
-
-
+    /**
+     * Gets Workout Names, Exercise Names, Weight and Reps from weightliftingData Ordered by Workout Name
+     * @return ArrayList of Workout type
+     * @throws Exception for if call to database fails
+     */
     public static ArrayList<Workout> getWorkoutDataFromDB()
     {
         ArrayList<Workout> workouts = new ArrayList<>();
@@ -21,7 +26,6 @@ public class DBUtility {
         String sql =    "SELECT Workout_Name, Exercise_Name, Weight, Reps " +
                         "FROM weightliftingData " +
                         "ORDER BY Workout_Name;";
-
 
         try(
                 Connection conn = DriverManager.getConnection(connectUrl,user,pw);
@@ -51,6 +55,10 @@ public class DBUtility {
         return workouts;
     }
 
+    /**
+     * Gets the top 10 Exercise Names and the number of times each Exercise was recorded as TimesExerciseCompleted from weightliftingData Ordered by TimesExerciseCompleted
+     * @return XYChart
+     */
     public static XYChart.Series<String,Integer> getExercisesCompleted()
     {
         XYChart.Series<String, Integer> exercisesCompleted = new XYChart.Series<>();
@@ -85,6 +93,8 @@ public class DBUtility {
         }
         return exercisesCompleted;
     }
+
+
     public static ArrayList<String> getExerciseName()
     {
         ArrayList<String> exerciseNames = new ArrayList<>();

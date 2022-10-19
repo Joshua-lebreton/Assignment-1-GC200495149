@@ -1,4 +1,6 @@
-package com.example.assignment1gc200495149;
+package com.example.Controllers;
+import com.example.assignment1gc200495149.DBUtility;
+import com.example.assignment1gc200495149.SceneChanger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +13,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/** Gets data from Data base utility class and adds it so Bar Chart
+ * @author Joshua Lebreton
+ */
 public class ExercisesCompletedDashboardController implements Initializable {
 
     @FXML

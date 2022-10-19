@@ -6,4 +6,6 @@ module com.example.assignment1gc200495149 {
 
     opens com.example.assignment1gc200495149 to javafx.fxml;
     exports com.example.assignment1gc200495149;
+    exports com.example.Controllers;
+    opens com.example.Controllers to javafx.fxml;
 }

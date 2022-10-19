@@ -1,4 +1,7 @@
-package com.example.assignment1gc200495149;
+package com.example.Controllers;
+import com.example.assignment1gc200495149.DBUtility;
+import com.example.assignment1gc200495149.SceneChanger;
+import com.example.assignment1gc200495149.Workout;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +14,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/** Gets data from Data base utility class and adds data to Table View
+ * @author Joshua Lebreton
+ */
 public class WeightDataTableController implements Initializable {
 
     @FXML
